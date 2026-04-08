@@ -55,7 +55,7 @@ Se publicada:
 
 <dependency>
     <groupId>br.com.juhmaran</groupId>
-    <artifactId>exception-lib</artifactId>
+    <artifactId>custom-exception-library</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
