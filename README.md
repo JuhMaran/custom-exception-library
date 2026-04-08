@@ -117,11 +117,17 @@ public class PaymentException extends BusinessException {
 * Manter `ErrorCode` estável
 * Logar erros internos (500)
 
+## Documentação
+
+* [Exemplo de Swagger](./swagger/openapi.yaml)
+
 ## Licença
 
-Apache 2.0
+Este projeto está licenciado sob a [**Apache License 2.0**](LICENSE)
 
 ## Autora
 
 Desenvolvido por Juliane Maran
+
+[GitHub JuhMaran](https://github.com/JuhMaran)
 
