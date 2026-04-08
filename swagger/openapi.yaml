@@ -1,0 +1,126 @@
+openapi: 3.1.0
+info:
+  title: Exception Handling API
+  description: Documentação padrão de respostas de erro para APIs que utilizam a Exception Library.
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+    description: Local environment
+paths:
+  /users/{id}:
+    get:
+      summary: Buscar usuário por ID
+      description: Retorna um usuário pelo ID ou erro padronizado
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do usuário
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableContent'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  schemas:
+    # Modelo padrão de erro
+    ErrorResponse:
+      type: object
+      description: Estrutura padrão de erro da API
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-04-08T12:00:00"
+        status:
+          type: integer
+          example: 404
+        error:
+          type: string
+          example: "Not Found"
+        message:
+          type: string
+          example: "User not found with id: 2"
+        path:
+          type: string
+          example: "/users/2"
+        errorCode:
+          type: string
+          example: "RESOURCE_NOT_FOUND"
+        traceId:
+          type: string
+          example: "b7f3c2d4-9e2c-4f4a-8c2b-91c1a7b6d123"
+
+    # Exemplo de entidade (apenas demonstração)
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "John Doe"
+
+  responses:
+    BadRequest:
+      description: Requisição inválida
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Não autenticado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Acesso negado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Recurso não encontrado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: Conflito de recurso
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableContent:
+      description: Entidade não processável
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalError:
+      description: Erro interno do servidor
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
