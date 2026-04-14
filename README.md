@@ -60,7 +60,24 @@ Se publicada:
 </dependency>
 ```
 
-### 2. Lançar exceções no domínio
+### 2. Configuração
+
+É necessário criar uma classe para configurar a Exception na aplicação.
+
+```java
+import br.com.juhmaran.exception.handler.GlobalExceptionHandler;
+import br.com.juhmaran.exception.util.TraceFilter;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+
+@Configuration
+@Import({GlobalExceptionHandler.class, TraceFilter.class})
+public class ExceptionConfig {
+
+}
+```
+
+### 3. Lançar exceções no domínio
 
 ```java
 if(user ==null){
@@ -70,9 +87,9 @@ ResourceNotFoundException("User not found");
 }
 ```
 
-### 3. Pronto
+### 4. Pronto
 
-O `GlobalExceptionHandler` já intercepta automaticamente.
+Desta forma o `GlobalExceptionHandler` intercepta e lança as exceptions corretamente.
 
 ## Tipos de Erro Suportados
 
